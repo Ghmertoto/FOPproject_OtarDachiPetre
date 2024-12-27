@@ -1,6 +1,4 @@
 # FOPproject_OtarDachiPetreDemiko
-Fundamentals of programming, Team: Otar, Dachi, Petre, Demiko 
-Team 18 
 
 Project Title: Java-to-Swift Interpreter for a Minimal Programming Language 
 
