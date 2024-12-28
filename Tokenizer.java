@@ -1,6 +1,7 @@
 import java.util.*;
 
 class Tokenizer {
+
     private final String input;  // The input string to be tokenized, stored as a final field since it won't change.
     private int pos;   //  Tracks the current position in the input string during tokenization.
     private int line;   // Tracks the current line number in the input.
@@ -8,14 +9,16 @@ class Tokenizer {
 
     // Set of predefined keywords in the language, stored in a HashSet for fast lookup.
     private static final Set<String> KEYWORDS = new HashSet<>(Arrays.asList(
-            "var", "if", "else", "while", "for", "print", "function",
-            "return", "break", "continue", "true", "false"
+            "var", "let", "if", "else", "while", "for", "print", "function",
+            "return", "break", "continue"
     ));
 
     // Map of multi-character operators to their corresponding symbolic names.
     private static final Map<String, String> OPERATORS = new HashMap<>() {{
         put("==", "EQUALS");
         put("!=", "NOT_EQUALS");
+        put(">", "GREATER");
+        put("<", "LESS");
         put("<=", "LESS_EQUAL");
         put(">=", "GREATER_EQUAL");
         put("&&", "AND");
@@ -61,9 +64,11 @@ class Tokenizer {
             } else if (isPunctuation(current)) {
                 // Tokenize punctuation characters (e.g., '(', ')', ';', etc.).
                 tokens.add(new Token("PUNCTUATION", String.valueOf(consumeChar()), line, column - 1));
+            } else {
+                // Throw TokenizeException which extends RuntimeException.
+                throw new TokenizerException("Unexpected character: " + current, line, column);
             }
         }
-
         // Add an end-of-file (EOF) token to indicate the end of the input stream.
         tokens.add(new Token("EOF", "", line, column));
         return tokens;
@@ -111,8 +116,8 @@ class Tokenizer {
                 value.append(current); // Append the current character to the string value.
             }
         }
-
-        return null; // Return null if the string is not properly closed (error case).
+        // Throw exception that the string literal was unterminated.
+        throw new TokenizerException("Unterminated string literal", line, startColumn);
     }
 
     // Parses common escape sequences like `\n`, `\t`, and `\\`.
@@ -236,6 +241,7 @@ class Tokenizer {
                 column = 1; // Reset column to 1.
             }
         }
+        throw new TokenizerException("Unterminated multi-line comment", line, column);
     }
 
     // Peeks at a character ahead of the current position without consuming it.
