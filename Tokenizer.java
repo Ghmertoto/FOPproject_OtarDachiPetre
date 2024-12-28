@@ -9,8 +9,8 @@ class Tokenizer {
 
     // Set of predefined keywords in the language, stored in a HashSet for fast lookup.
     private static final Set<String> KEYWORDS = new HashSet<>(Arrays.asList(
-            "var", "if", "else", "while", "for", "print", "function",
-            "return", "break", "continue", "true", "false"
+            "var", "let", "if", "else", "while", "for", "print", "function",
+            "return", "break", "continue"
     ));
 
     // Map of multi-character operators to their corresponding symbolic names.
