@@ -17,6 +17,8 @@ class Tokenizer {
     private static final Map<String, String> OPERATORS = new HashMap<>() {{
         put("==", "EQUALS");
         put("!=", "NOT_EQUALS");
+        put(">", "GREATER");
+        put("<", "LESS");
         put("<=", "LESS_EQUAL");
         put(">=", "GREATER_EQUAL");
         put("&&", "AND");
