@@ -212,7 +212,6 @@ class Tokenizer {
                 column = 1; // Reset column to 1.
             }
         }
-        throw new TokenizerException("Unterminated multi-line comment", line, column);
     }
 
     // Consumes single-line comments.
@@ -242,6 +241,7 @@ class Tokenizer {
                 column = 1; // Reset column to 1.
             }
         }
+        throw new TokenizerException("Unterminated multi-line comment", line, column);
     }
 
     // Peeks at a character ahead of the current position without consuming it.
