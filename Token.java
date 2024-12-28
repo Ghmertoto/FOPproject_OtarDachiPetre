@@ -8,6 +8,21 @@ class Token {
 
     // Constructor.
     Token(String type, String value, int line, int column) {
+
+        // Handling illegal argument exception.
+        if (type == null || type.isEmpty()) {
+            throw new IllegalArgumentException("Type cannot be null or empty.");
+        }
+        if (value == null) {
+            throw new IllegalArgumentException("Value cannot be null.");
+        }
+        if (line < 0) {
+            throw new IllegalArgumentException("Line number must be non-negative.");
+        }
+        if (column < 0) {
+            throw new IllegalArgumentException("Column number must be non-negative.");
+        }
+
         this.type = type;
         this.value = value;
         this.line = line;
