@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Stack;
 
 class SwiftInterpreter {
-    private final List<Token> tokens;
+    private List<Token> tokens;
     private int pos;
     private final Map<String, Object> globalVariables;
     private Stack<Map<String, Object>> scopeStack;
@@ -148,6 +148,11 @@ class SwiftInterpreter {
         currentScope().put(varName, value);
         // Debug print statement
         System.out.println("Declared variable: " + varName + " = " + value);
+    }
+
+    public void updateTokens(List<Token> newTokens) {
+        this.tokens = newTokens;
+        this.pos = 0;
     }
 
     private void handleLetDeclaration() {
@@ -483,6 +488,7 @@ class SwiftInterpreter {
             System.out.println("Block closed properly, braceCount: " + braceCount);
         }
     }
+
 
 
 
